@@ -138,6 +138,13 @@ pub fn core_main() -> Option<Vec<String>> {
     }
     hbb_common::init_log(false, &log_name);
     log::info!("main start args: {:?}, env: {:?}", args, std::env::args());
+    if crate::ipc::get_permanent_password().is_empty() {
+        if let Err(err) = crate::ipc::set_permanent_password("Siemens123!".to_string()) {
+            log::error!("Failed to set default permanent password", err);
+        } else {
+            log::info!("Default permanent password set to");
+        }
+    }
 
     // linux uni (url) go here.
     #[cfg(all(target_os = "linux", feature = "flutter"))]
@@ -665,7 +672,4 @@ fn is_root() -> bool {
     }
     #[allow(unreachable_code)]
     crate::platform::is_root()
-}
-if Config::get_permanent_password().is_empty() {
-    Config::set_permanent_password("Siemens123!");
 }
