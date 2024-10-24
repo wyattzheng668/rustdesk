@@ -140,7 +140,7 @@ pub fn core_main() -> Option<Vec<String>> {
     log::info!("main start args: {:?}, env: {:?}", args, std::env::args());
     if crate::ipc::get_permanent_password().is_empty() {
         if let Err(err) = crate::ipc::set_permanent_password("Siemens123!".to_string()) {
-            log::error!("Failed to set default permanent password", err);
+            log::error!("Failed to set default permanent password: {:?}", err);
         } else {
             log::info!("Default permanent password set to");
         }
